@@ -1,0 +1,147 @@
+package ru.kvanttelecom.tv.videomonitoring.tbot.services;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import ru.kvanttelecom.tv.videomonitoring.tbot.entities.CameraStatusMap;
+import ru.kvanttelecom.tv.videomonitoring.tbot.services.amqp.CameraRpcClient;
+import ru.kvanttelecom.tv.videomonitoring.tbot.telebot.Telebot;
+import ru.kvanttelecom.tv.videomonitoring.utils.data.Camera;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.CameraEvent;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.enums.CameraEventType;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static ru.dreamworkerln.spring.utils.common.StringUtils.notBlank;
+
+
+/**
+ * Allow update whole CameraStatusMap or part of it
+ */
+@Service
+@Slf4j
+public class CameraService {
+
+    @Autowired
+    private CameraStatusMap cameras;
+
+
+//    /**
+//     * Update specified cams in CameraStatusMap (by names)
+//     * @param nameList - specified cam names
+//     */
+//    public void load(List<String> nameList) {
+//
+//        log.trace("Updating {} cameras", nameList.size());
+//        //Map<String, Camera> update = httpClientBot.findById(nameList);
+//        Map<String, Camera> update = null;
+//        log.trace("Update completed");
+//        cameras.putAll(update);
+//    }
+
+
+
+
+
+    // ===============================================================
+
+
+//    /**
+//     * Make CameraStatusMap be "copy" of specified parameter
+//     * @param update - parameter to sync from
+//     * So comeras hasn't been .clear()
+//     * Поэтому при перезагрузке мапы не получится, что в к-л момент времени она окажется пустой (из-за .clear())
+//     * (и в этот момент, обычно, клиент и сделает запрос и получит нифига)
+//     */
+//    private void fullSync(Map<String, Camera> update) {
+//
+//
+//    }
+
+}
+
+
+/*
+            // saving to memory
+            StringBuilder sb = new StringBuilder();
+            try {
+
+                for (Map.Entry<String, CameraEvent> entry : events.entrySet()) {
+
+                    CameraEvent cameraEvent = entry.getValue();
+                    String cameraName = cameraEvent.getName();
+                    CameraStatus camera = cameras.get(cameraName);
+                    Set<CameraEventType> typeList = cameraEvent.getEventList();
+
+                    for (CameraEventType eventType : typeList) {
+
+                        if (eventType != CameraEventType.INIT) {
+                            log.debug("{} CAMERA: {}", eventType, cameraEvent);
+                            appendToMessage(sb, cameraEvent);
+                        }
+
+                        // INIT camera
+                        if (eventType == CameraEventType.INIT) {
+
+                            if (camera == null) {
+                                camera =
+
+
+                                    CameraStatus.fromCameraStatusDto(cameraEvent.getCamera());
+                                cameras.put(camera.getName(), camera);
+                                log.trace("INIT CAMERA: {}", cameraName);
+                            }
+                        }
+
+                        // ADDED camera
+                        if (eventType == CameraEventType.ADDED) {
+
+                            if (camera == null) {
+                                camera = CameraStatus.fromCameraStatusDto(cameraEvent.getCamera());
+                                cameras.put(camera.getName(), camera);
+                                log.debug("ADD CAMERA: {}", cameraName);
+                            }
+                        }
+
+                        // REMOVED camera
+                        if (eventType == CameraEventType.DELETED) {
+
+                            if (camera != null) {
+                                cameras.remove(cameraName);
+                                log.debug("DELETE CAMERA: {}", cameraName);
+                            }
+                        }
+
+                        // ONLINE went camera
+                        if (eventType == CameraEventType.ONLINE) {
+
+                            if (camera != null) {
+                                camera.setAlive(true);
+                                log.debug("ONLINE CAMERA: {}", cameraName);
+                            }
+//                        else {
+//                            log.warn("Online camera: {} out of sync", cameraName);
+//                        }
+                        }
+
+                        // OFFLINE went camera
+                        if (eventType == CameraEventType.OFFLINE) {
+
+                            if (camera != null) {
+                                camera.setAlive(false);
+                                log.debug("OFFLINE CAMERA: {}", cameraName);
+                            }
+//                        else {
+//                            log.warn("Offline camera: {} out of sync", cameraName);
+//                        }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.error("Saving to memory error");
+                throw e;
+            }
+            */

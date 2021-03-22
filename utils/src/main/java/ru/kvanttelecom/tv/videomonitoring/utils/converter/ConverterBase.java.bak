@@ -1,0 +1,54 @@
+package ru.kvanttelecom.tv.videomonitoring.utils.converter;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.CameraEvent;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+@Slf4j
+public class ConverterBase {
+
+    @Autowired
+    protected ObjectMapper objectMapper;
+
+    // camera name list
+    @SneakyThrows
+    public String namesToJson(List<String> nameList ) {
+        return objectMapper.writeValueAsString(nameList);
+    }
+
+    @SneakyThrows
+    public ArrayList<String> jsonToNames(String json) {
+        TypeReference<ArrayList<String>> typeRef = new TypeReference<>() {};
+        return objectMapper.readValue(json, typeRef);
+    }
+
+
+    // CameraEventDto
+
+    @SneakyThrows
+    public String camEventToJson(Map<String, CameraEvent> dtoMap) {
+
+        List<CameraEvent> dtoList = new ArrayList<>(dtoMap.values());
+        return objectMapper.writeValueAsString(dtoList);
+    }
+
+    @SneakyThrows
+    public Map<String, CameraEvent> jsonToCamEvent(String json) {
+
+        TypeReference<ArrayList<CameraEvent>> typeRef = new TypeReference<>() {};
+        return objectMapper.readValue(json, typeRef).stream()
+            .collect(Collectors.toMap(CameraEvent::getName, Function.identity()));
+    }
+}
+
+// .writerWithDefaultPrettyPrinter()

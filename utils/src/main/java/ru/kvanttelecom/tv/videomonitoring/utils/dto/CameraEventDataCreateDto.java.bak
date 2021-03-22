@@ -1,0 +1,18 @@
+package ru.kvanttelecom.tv.videomonitoring.utils.dto;
+
+import lombok.Data;
+
+/**
+ * CameraEventDto data - new camera has been created
+ */
+@Data
+public class CameraEventDataCreateDto extends CameraEventData {
+
+    private CameraStatusDto camera;
+
+    public CameraEventDataCreateDto() {}
+
+    public CameraEventDataCreateDto(CameraStatusDto camera) {
+        this.camera = camera;
+    }
+}

@@ -1,0 +1,40 @@
+package ru.kvanttelecom.tv.videomonitoring.tbot.services;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
+import ru.kvanttelecom.tv.videomonitoring.utils.converter.ConverterBase;
+import ru.kvanttelecom.tv.videomonitoring.utils.data.Camera;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.CameraDto;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+public class Converter extends ConverterBase {
+
+    @SneakyThrows
+    public String camMapToJson(Map<String, Camera> map) {
+
+        List<CameraDto> dtoList =
+            map.values().stream()
+                .map(Camera::toCameraStatusDto)
+                .collect(Collectors.toList());
+
+        return objectMapper.writeValueAsString(dtoList);
+    }
+
+    @SneakyThrows
+    public Map<String, Camera> jsonToCamMap(String json) {
+
+        TypeReference<List<CameraDto>> typeRef = new TypeReference<>() {};
+        List<CameraDto> dtoList = objectMapper.readValue(json, typeRef);
+
+        return dtoList.stream()
+            .collect(Collectors.toMap(
+                CameraDto::getName,
+                Camera::fromCameraStatusDto
+            ));
+    }
+
+}

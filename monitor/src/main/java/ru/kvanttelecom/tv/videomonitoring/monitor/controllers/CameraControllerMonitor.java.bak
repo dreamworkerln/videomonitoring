@@ -1,0 +1,105 @@
+package ru.kvanttelecom.tv.videomonitoring.monitor.controllers;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import ru.kvanttelecom.tv.videomonitoring.utils.data.Camera;
+import ru.kvanttelecom.tv.videomonitoring.monitor.services.CameraService;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.constants.ControllersPaths;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@Slf4j
+public class CameraControllerMonitor {
+
+//    @Autowired
+//    private Converter converter;
+
+    @Autowired
+    private CameraService cameraService;
+
+    @PostMapping(value = ControllersPaths.monitor.camera.all)
+    public ResponseEntity<String> getAllCameras() {
+
+        ResponseEntity<String> result; // = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        log.trace("GET: camera all");
+
+        try {
+            Map<String, Camera> tmp = cameraService.findAll();
+            //String response = converter.camMapToJson(tmp);
+            //result = ResponseEntity.ok(response);
+        }
+        catch (Exception e) {
+            log.error("ERROR: ", e);
+            result = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return null;
+    }
+
+
+    @PostMapping(value = ControllersPaths.monitor.camera.idList)
+    public ResponseEntity<String> getCamerasById(@RequestBody String request) {
+
+        ResponseEntity<String> result; // = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        log.trace("GET: camera list");
+
+        try {
+            //List<String> names = converter.jsonToNames(request);
+            //Map<String, Camera> tmp = cameraService.findById(names);
+            //String response = converter.camMapToJson(tmp);
+            //result = ResponseEntity.ok(response);
+        }
+        catch (Exception e) {
+            log.error("Error details: ", e);
+            result = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return null;
+    }
+
+
+//    @PostMapping(value ="/update/streamList")
+//    public void update(@RequestBody String json) {
+//
+//        AtomicReference<StreamDtoList> streamDtoList = new AtomicReference<>();
+//        unchecked(() -> streamDtoList.set(objectMapper.readValue(json, StreamDtoList.class))).run();
+//
+//        Set<String> tmp = new HashSet<>();
+//
+//        for(StreamDto streamDto : streamDtoList.get().getStreamDtoList()) {
+//
+//            // старые значения не пихаем в streamList
+//            if (!Data.streamList.containsKey(streamDto.getName()) ||
+//                streamDto.getUpdated().isAfter(Data.streamList.get(streamDto.getName()).getUpdated())) {
+//
+//                Data.streamList.put(streamDto.getName(), streamDto);
+//            }
+//
+//            tmp.add(streamDto.getName());
+//        }
+//
+//
+//
+//        // clear obsolete elements in Data.streamList
+//        Data.streamList.keySet().retainAll(tmp);
+//        tmp.clear();
+//    }
+
+//    @GetMapping(value ="/streams")
+//    public String streams() {
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("<pre><code>");
+//        sb.append(Utils.getStreamsInfo());
+//        sb.append("</code></pre>");
+//
+//        return sb.toString();
+//    }
+}

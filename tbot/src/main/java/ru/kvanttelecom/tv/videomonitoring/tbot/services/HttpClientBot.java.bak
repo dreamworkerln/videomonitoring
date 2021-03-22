@@ -1,0 +1,65 @@
+package ru.kvanttelecom.tv.videomonitoring.tbot.services;
+
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import ru.dreamworkerln.spring.utils.common.rest.RestClient;
+import ru.kvanttelecom.tv.videomonitoring.tbot.configurations.properties.ApplicationProperties;
+import ru.kvanttelecom.tv.videomonitoring.utils.data.Camera;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.constants.ControllersPaths;
+
+import java.util.List;
+import java.util.Map;
+
+import static ru.kvanttelecom.tv.videomonitoring.utils.dto.constants.Constants.PROTOCOL;
+
+
+/**
+ * Perform different communication tasks via HTTP REST API
+ */
+@Service
+@Slf4j
+public class HttpClientBot {
+
+    @Autowired
+    private RestClient restClient;
+
+    @Autowired
+    private ApplicationProperties props;
+
+//    @Autowired
+//    private Converter converter;
+
+    /**
+     * Get all cameras from monitor
+     */
+    @SneakyThrows
+    public Map<String, Camera> getAllCameras() {
+
+        String url = PROTOCOL + props.getMonitorUrl() + ControllersPaths.monitor.camera.all;
+        ResponseEntity<String> response = restClient.post(url, null);
+
+        //return converter.jsonToCamMap(response.getBody());
+
+        return null;
+    }
+
+
+    /**
+     * Get list of specified cameras by id from monitor
+     */
+    @SneakyThrows
+    public Map<String, Camera> findById(List<String> nameList) {
+
+        String url = PROTOCOL + props.getMonitorUrl() + ControllersPaths.monitor.camera.idList;
+        //String json = converter.namesToJson(nameList);
+        //ResponseEntity<String> response = restClient.post(url, json);
+
+        //return converter.jsonToCamMap(response.getBody());
+
+        return null;
+    }
+
+}

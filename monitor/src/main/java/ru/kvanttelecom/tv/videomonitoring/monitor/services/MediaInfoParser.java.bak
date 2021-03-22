@@ -1,0 +1,39 @@
+package ru.kvanttelecom.tv.videomonitoring.monitor.services;
+
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.kvanttelecom.tv.videomonitoring.monitor.configurations.properties.ApplicationProperties;
+import ru.kvanttelecom.tv.videomonitoring.monitor.data.CameraUpdate;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+
+/**
+ * Download and parse(deserialize json -> cameraStatus map) mediaInfo(cameras info list from flussonic media server)
+ */
+@Service
+@Slf4j
+public class MediaInfoParser {
+
+
+    @Autowired
+    ApplicationProperties props;
+
+    @Autowired
+    HttpClient downloader;
+
+
+    /**
+     * Get new MediaInfo from flussonic media servers
+     */
+    public ConcurrentMap<String, CameraUpdate> getMediaInfo(String server) {
+
+
+    }
+
+}

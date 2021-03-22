@@ -1,0 +1,16 @@
+package ru.kvanttelecom.tv.videomonitoring.utils.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * CameraEventDto data
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CameraEventData {
+    private CameraStatusDto camera;
+
+}

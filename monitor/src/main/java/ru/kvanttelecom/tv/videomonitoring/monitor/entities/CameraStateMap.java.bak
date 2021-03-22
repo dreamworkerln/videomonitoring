@@ -1,0 +1,11 @@
+package ru.kvanttelecom.tv.videomonitoring.monitor.entities;
+
+
+import org.springframework.stereotype.Component;
+import ru.dreamworkerln.spring.utils.common.mapwrapper.ConcurrentMapWrapper;
+import ru.kvanttelecom.tv.videomonitoring.utils.data.CameraState;
+
+@Component
+public class CameraStateMap extends ConcurrentMapWrapper<String, CameraState> {
+
+}

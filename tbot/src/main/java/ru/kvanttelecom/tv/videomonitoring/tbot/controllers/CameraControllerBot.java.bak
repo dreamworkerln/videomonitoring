@@ -1,0 +1,82 @@
+package ru.kvanttelecom.tv.videomonitoring.tbot.controllers;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import ru.kvanttelecom.tv.videomonitoring.tbot.services.CameraService;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.CameraEvent;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.constants.ControllersPaths;
+
+import java.util.Map;
+
+@RestController
+@Slf4j
+public class CameraControllerBot {
+
+//    @Autowired
+//    private Converter converter;
+
+    @Autowired
+    CameraService cameraService;
+
+
+    @PostMapping(value = ControllersPaths.tbot.camera.update)
+    public ResponseEntity<String> updateCameras(@RequestBody String json) {
+
+        ResponseEntity<String> result = ResponseEntity.status(HttpStatus.OK).build();
+        try {
+
+            log.trace("POST /cameras");
+            //Map<String, CameraEvent> update = converter.jsonToCamEvent(json);
+            //cameraService.parseEvent(update);
+        }
+        catch (Exception e) {
+            log.error("ERROR: ", e);
+            result = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return result;
+    }
+
+
+//    @PostMapping(value ="/update/streamList")
+//    public void update(@RequestBody String json) {
+//
+//        AtomicReference<StreamDtoList> streamDtoList = new AtomicReference<>();
+//        unchecked(() -> streamDtoList.set(objectMapper.readValue(json, StreamDtoList.class))).run();
+//
+//        Set<String> tmp = new HashSet<>();
+//
+//        for(StreamDto streamDto : streamDtoList.get().getStreamDtoList()) {
+//
+//            // старые значения не пихаем в streamList
+//            if (!Data.streamList.containsKey(streamDto.getName()) ||
+//                streamDto.getUpdated().isAfter(Data.streamList.get(streamDto.getName()).getUpdated())) {
+//
+//                Data.streamList.put(streamDto.getName(), streamDto);
+//            }
+//
+//            tmp.add(streamDto.getName());
+//        }
+//
+//
+//
+//        // clear obsolete elements in Data.streamList
+//        Data.streamList.keySet().retainAll(tmp);
+//        tmp.clear();
+//    }
+
+//    @GetMapping(value ="/streams")
+//    public String streams() {
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("<pre><code>");
+//        sb.append(Utils.getStreamsInfo());
+//        sb.append("</code></pre>");
+//
+//        return sb.toString();
+//    }
+}

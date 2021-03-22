@@ -1,0 +1,27 @@
+package ru.kvanttelecom.tv.videomonitoring.bot.services;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.kvanttelecom.tv.videomonitoring.bot.data.Camera;
+import ru.kvanttelecom.tv.videomonitoring.bot.entities.CameraStatusMap;
+import ru.kvanttelecom.tv.videomonitoring.bot.telebot.Telebot;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.CameraEvent;
+import ru.kvanttelecom.tv.videomonitoring.utils.dto.enums.CameraEventType;
+
+import java.util.Map;
+import java.util.Set;
+
+import static ru.kvanttelecom.tv.videomonitoring.utils.StringUtils.notBlank;
+
+
+@Service
+@Slf4j
+public class CameraEventService {
+
+;
+
+
+
+}
+

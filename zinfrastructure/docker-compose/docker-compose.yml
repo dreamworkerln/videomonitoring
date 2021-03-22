@@ -1,0 +1,28 @@
+version: '3.2'
+services:
+  monitor:
+    image: "dreamworkerln/videomonitoring-monitor"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "server.port": "80",
+        "logging.level.ru.kvanttelecom.tv.videomonitoring": "INFO",
+        "bot.url": "bot",
+        "delay.threshold.sec": "100",
+        "refresh.interval.sec": "10",
+        "media.server.list": "video1.streamer.ru,video2.streamer.ru,video3.streamer.ru",
+        "media.server.username": "USERNAME",
+        "media.server.password": "PASSWORD"
+      }'
+    restart: always
+
+  tbot:
+    image: "dreamworkerln/videomonitoring-tbot"
+    depends_on:
+      - monitor
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "server.port": "80",
+        "logging.level.ru.kvanttelecom.tv.videomonitoring": "DEBUG",
+        "monitor.url": "monitor"
+      }'
+    restart: always
